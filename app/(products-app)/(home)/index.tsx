@@ -4,7 +4,7 @@ import React from 'react'
 const HomeScreen = () => {
   return (
     <View style={{padding:30}}>
-      <Text style={{fontFamily:'KanitRegular', fontSize:30}}>HomeScreen</Text>
+      <Text style={{fontFamily:'KanitRegular', fontSize:30}}>HomeScreeeeeen</Text>
     </View>
   )
 }

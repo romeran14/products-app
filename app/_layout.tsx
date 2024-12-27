@@ -1,4 +1,5 @@
 import { useColorScheme } from '@/presentation/theme/hooks/useColorScheme';
+import { useThemeColor } from '@/presentation/theme/hooks/useThemeColor';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
@@ -13,6 +14,8 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const backgroundColor = useThemeColor({}, 'background')
+  
   const [loaded] = useFonts({
     //SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     KanitRegular: require('../assets/fonts/Kanit-Regular.ttf'),

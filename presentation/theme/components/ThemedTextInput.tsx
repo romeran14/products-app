@@ -4,20 +4,21 @@ import { useThemeColor } from '../hooks/useThemeColor'
 import { useRef, useState } from 'react'
 
 interface Props extends TextInputProps{
-  icon: keyof typeof Ionicons.glyphMap
+  icon?: keyof typeof Ionicons.glyphMap
 }
 
-const ThemedTextInput = ({icon,...props}:Props) => {
+const ThemedTextInput = ({icon,style,...props}:Props) => {
 
     const text = useThemeColor({}, 'text')
     const primary = useThemeColor({}, 'primary')
-
+     
     const [isActive, setIsActive] = useState(false)
     const inputRef = useRef<TextInput>(null)
 
   return (
     <View 
-      style={{...styles.container, borderColor:isActive ? primary: "#ccc"}}
+      //@ts-ignore
+      style={[{...styles.container, borderColor:isActive ? primary: "#ccc"}, style, ]}
       onTouchStart={ ()=> inputRef.current?.focus() }
     >
         {icon ? <Ionicons name={icon} size={24} color={text} /> : null}

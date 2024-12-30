@@ -9,8 +9,17 @@ const ProductImages = ({ images }:Props) => {
 
     if (images.length === 0) {
         return (
-            <View>
-                <Image source={ require('../../../assets/images/no-product-image.png')}/>
+            <View
+              style={{
+
+                justifyContent: 'center',
+                alignItems: 'center',
+              
+              }}
+             >
+                <Image 
+                   style={{ width: 300, height: 300, marginHorizontal: 5, borderRadius: 5 , overflow:'hidden'}}
+                   source={ require('../../../assets/images/no-product-image.png')}/>
             </View>
         )
     }

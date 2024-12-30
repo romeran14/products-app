@@ -1,5 +1,7 @@
 import ProductList from '@/presentation/products/components/ProductList'
 import { useProducts } from '@/presentation/products/hooks/useProducts'
+import { FAB } from '@/presentation/theme/components/FAB'
+import { router } from 'expo-router'
 import { View, Text, ActivityIndicator } from 'react-native'
 
 
@@ -18,6 +20,7 @@ const HomeScreen = () => {
   return (
     <View style={{padding:30}}>
       <ProductList  products={productQuery.data?.pages.flatMap((page) => page) ?? []} loadNextPage={loadNextpage}/>
+      <FAB iconName='add-outline' onPress={() => router.push("/(products-app)/product/new")} ></FAB>
     </View>
   )
 }

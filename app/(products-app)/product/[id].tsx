@@ -1,7 +1,6 @@
 import { View, Text, ScrollView, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native'
 import React, { useEffect } from 'react'
-import { Redirect, useLocalSearchParams, useNavigation } from 'expo-router'
-import { Ionicons } from '@expo/vector-icons'
+import { Redirect, router, useLocalSearchParams, useNavigation } from 'expo-router'
 import { ThemedView } from '@/presentation/theme/components/ThemedView'
 import ThemedTextInput from '@/presentation/theme/components/ThemedTextInput'
 import { useProduct } from '@/presentation/products/hooks/useProduct'
@@ -10,6 +9,8 @@ import ThemedButtonGroup from '@/presentation/theme/components/ThemedButtonGroup
 import ThemedButton from '@/presentation/theme/components/ThemedButton'
 import { Formik } from 'formik'
 import { Size } from '@/core/products/interfaces/product.interface'
+import MenuIconButton from '@/presentation/theme/components/MenuIconButton'
+import { useCameraStore } from '../../../presentation/store/useCameraStore';
 
 const ProductScreen = () => {
 
@@ -18,13 +19,21 @@ const ProductScreen = () => {
 
     const { productQuery, productMutation } = useProduct(`${id}`)
 
+    const { selectedImages, clearImages } = useCameraStore()
+
+    useEffect(() => {
+    
+    
+      return () => {
+       clearImages()
+      }
+    }, [])
+    
+
     useEffect(() => {
         navigation.setOptions({
             headerRight: () => (
-                <Ionicons 
-                    name="camera-outline"
-                    size={24}
-                />
+                <MenuIconButton icon='camera-outline' onPress={() => router.push('/camera')}/>
             )
         })
     }, [])
@@ -61,7 +70,7 @@ const ProductScreen = () => {
                     behavior={Platform.OS === 'ios' ? 'padding': undefined}
                   >
                       <ScrollView>
-                      <ProductImages images={values.images}/>
+                      <ProductImages images={[...values.images,...selectedImages]}/>
                       <ThemedView style={{ marginHorizontal:10, marginTop:20 }}>
                           <ThemedTextInput placeholder='Titulo' style={{marginVertical:10}} value={values.title} onChangeText={ handleChange('title')} />
                           <ThemedTextInput placeholder='Slug' style={{marginVertical:10}} value={values.slug} onChangeText={ handleChange('slug')} />
